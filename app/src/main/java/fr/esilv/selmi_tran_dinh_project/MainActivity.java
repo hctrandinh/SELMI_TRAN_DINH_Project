@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,13 +23,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener{
 
     MyRecyclerViewAdapter adapter;
+    TextView count_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.pokemonlistfragment);
         final Context context = getBaseContext();
         final ArrayList<Pokemon> pokemon_list = new ArrayList<>();
+        count_main = findViewById(R.id.count_main);
 
         RecyclerView recyclerView = findViewById(R.id.pokemons);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
                 if(response.body().toString() != null)
                 {
+                    count_main.setText("Pokemons found: " + Integer.toString(res.getCount()));
                     List<All_Pokemons.Results> list = res.getResults();
                     for(int index = 0; index < list.size(); index++)
                     {
