@@ -1,15 +1,24 @@
 package fr.esilv.selmi_tran_dinh_project;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,65 +29,106 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener{
+public class MainActivity extends AppCompatActivity{
 
-    MyRecyclerViewAdapter adapter;
-    TextView count_main;
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle t;
+    private NavigationView nv;
+    private BottomNavigationView bv;
+
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pokemonlistfragment);
-        final Context context = getBaseContext();
-        final ArrayList<Pokemon> pokemon_list = new ArrayList<>();
-        count_main = findViewById(R.id.count_main);
+        setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.pokemons);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new MyRecyclerViewAdapter(context, pokemon_list);
-        recyclerView.setAdapter(adapter);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
+        fragmentManager = getSupportFragmentManager();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://pokeapi.co/api/v2/pokemon/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        dl = (DrawerLayout)findViewById(R.id.activity_main);
+        t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
 
-        IRetrofit Iretrofit = retrofit.create(IRetrofit.class);
+        dl.addDrawerListener(t);
+        t.syncState();
 
-        Call<All_Pokemons> call = Iretrofit.pokemon_list();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        call.enqueue(new Callback<All_Pokemons>() {
+        fragmentTransaction=fragmentManager.beginTransaction();
+
+        HomeFragment homeFragment = new HomeFragment();
+
+        fragmentTransaction.replace(R.id.fragmentContainer, homeFragment);
+        fragmentTransaction.commit();
+
+        nv = (NavigationView)findViewById(R.id.nv);
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onResponse(Call<All_Pokemons> call, Response<All_Pokemons> response) {
-                MyRecyclerViewAdapter.ItemClickListener mClickListener;
-                All_Pokemons res = response.body();
-
-                if(response.body().toString() != null)
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch(id)
                 {
-                    count_main.setText("Pokemons found: " + Integer.toString(res.getCount()));
-                    List<All_Pokemons.Results> list = res.getResults();
-                    for(int index = 0; index < list.size(); index++)
-                    {
-                        Pokemon temp = new Pokemon(list.get(index).getName(), list.get(index).getUrl());
-                        Log.i("test", "onResponse: " + temp.getUrl());
-                        pokemon_list.add(temp);
-                    }
-                    adapter.notifyDataSetChanged();
+                    case R.id.account:
+                        Toast.makeText(MainActivity.this, "My Account",Toast.LENGTH_SHORT).show();break;
+                    case R.id.settings:
+                        Toast.makeText(MainActivity.this, "Settings",Toast.LENGTH_SHORT).show();break;
+                    case R.id.mycart:
+                        Toast.makeText(MainActivity.this, "My Cart",Toast.LENGTH_SHORT).show();break;
+                    default:
+                        return true;
                 }
+                return true;
             }
+        });
 
+        bv = (BottomNavigationView) findViewById(R.id.bottom_nav);
+        bv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onFailure(Call<All_Pokemons> call, Throwable t) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch(menuItem.getItemId())
+                {
+                    case R.id.home_icon:
+                        Toast.makeText(MainActivity.this, "Home",Toast.LENGTH_SHORT).show();
+                        fragmentTransaction=fragmentManager.beginTransaction();
 
+                        HomeFragment homeFragment = new HomeFragment();
+
+                        fragmentTransaction.replace(R.id.fragmentContainer, homeFragment);
+                        fragmentTransaction.commit();
+                        break;
+
+                    case R.id.list_icon:
+                        Toast.makeText(MainActivity.this, "List",Toast.LENGTH_SHORT).show();
+                        fragmentTransaction=fragmentManager.beginTransaction();
+
+                        PokemonListFragment pokemonListFragment = new PokemonListFragment();
+
+                        fragmentTransaction.replace(R.id.fragmentContainer, pokemonListFragment);
+                        fragmentTransaction.commit();
+                        break;
+
+                    case R.id.search_icon:
+                        Toast.makeText(MainActivity.this, "Search",Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.details_icon:
+                        Toast.makeText(MainActivity.this, "Details",Toast.LENGTH_SHORT).show();
+                        break;
+
+                    default:
+                        return true;
+                }
+                return false;
             }
         });
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked on row number " + position, Toast.LENGTH_SHORT).show();
-    }
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        if(t.onOptionsItemSelected(item))
+            return true;
+
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SELMI_TRAN_DINH_Project</string>
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
 </resources>

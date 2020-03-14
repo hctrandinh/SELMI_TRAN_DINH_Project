@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/header_main"
@@ -19,7 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/main_image"/>
+                android:src="@drawable/search_image"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,26 +26,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="ALL POKEMONS"
+                    android:text="SEARCH"
                     android:gravity="center"
                     android:textColor="#000"
                     android:textSize="18sp" />
-                <TextView
-                    android:id="@+id/count_main"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <EditText
+                    android:hint="Your pokemon..."
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="#555" />
+                    android:layout_weight=".70" />
+
+                <Button
+                    android:text="Find"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".30" />
             </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pokemons"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/header_main"
-        android:layout_marginBottom="50dp"/>
-
-</RelativeLayout>
+</LinearLayout>

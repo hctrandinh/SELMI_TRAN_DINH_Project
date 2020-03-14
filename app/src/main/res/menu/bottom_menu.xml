@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/favorites"
+    <item android:id="@+id/home_icon"
         android:icon="@drawable/ic_brightness_high_black_24dp"
-        android:title="Favorites"/>
-    <item android:id="@+id/music"
+        android:title="Home"/>
+    <item android:id="@+id/list_icon"
         android:icon="@drawable/ic_brightness_high_black_24dp"
-        android:title="Music"/>
-    <item android:id="@+id/places"
+        android:title="List"/>
+    <item android:id="@+id/search_icon"
         android:icon="@drawable/ic_brightness_high_black_24dp"
-        android:title="Places"/>
-    <item android:id="@+id/news"
+        android:title="Search"/>
+    <item android:id="@+id/details_icon"
         android:icon="@drawable/ic_brightness_high_black_24dp"
-        android:title="News"/>
+        android:title="Details"/>
 
 </menu>
