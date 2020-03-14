@@ -37,12 +37,14 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
                 <EditText
+                    android:id="@+id/input_search"
                     android:hint="Your pokemon..."
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".70" />
 
                 <Button
+                    android:id="@+id/btn_find"
                     android:text="Find"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -51,5 +53,12 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pokemons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header_main"
+        android:layout_marginBottom="50dp"/>
 
 </LinearLayout>
