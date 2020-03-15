@@ -109,6 +109,12 @@ public class MainActivity extends AppCompatActivity{
 
                     case R.id.search_icon:
                         Toast.makeText(MainActivity.this, "Search",Toast.LENGTH_SHORT).show();
+                        fragmentTransaction=fragmentManager.beginTransaction();
+
+                        PokemonSearchFragment pokemonSearchFragment = new PokemonSearchFragment();
+
+                        fragmentTransaction.replace(R.id.fragmentContainer, pokemonSearchFragment);
+                        fragmentTransaction.commit();
                         break;
 
                     case R.id.contact_icon:

@@ -54,7 +54,7 @@ public class PokemonSearchFragment extends Fragment{
 
                 if(response.body().toString() != null)
                 {
-                    pokemon_results.setText(res.getName());
+                    pokemon_results.setText(res.getName() + res.getAbilities().get(0).getAbility().getName());
                 }
             }
 
