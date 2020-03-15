@@ -48,7 +48,7 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
         input = rootView.findViewById(R.id.input_search);
         search = rootView.findViewById(R.id.btn_find);
 
-        RecyclerView recyclerView = rootView.findViewById(R.id.pokemons_result);
+        RecyclerView recyclerView = rootView.findViewById(R.id.pokemons);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         adapter = new MyRecyclerViewAdapter(context, pokemon_list);
         recyclerView.setAdapter(adapter);
