@@ -111,8 +111,8 @@ public class MainActivity extends AppCompatActivity{
                         Toast.makeText(MainActivity.this, "Search",Toast.LENGTH_SHORT).show();
                         break;
 
-                    case R.id.details_icon:
-                        Toast.makeText(MainActivity.this, "Details",Toast.LENGTH_SHORT).show();
+                    case R.id.contact_icon:
+                        Toast.makeText(MainActivity.this, "Contact",Toast.LENGTH_SHORT).show();
                         break;
 
                     default:
