@@ -87,31 +87,6 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:id="@+id/pokemon_name"
-                                android:layout_gravity="center"
-                                android:layout_width="wrap_content"
-                                android:textSize="20dp"
-                                android:textColor="#6A90B5"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:layout_gravity="center"
-                                android:layout_width="wrap_content"
-                                android:textSize="14dp"
-                                android:textColor="#DF6A90B5"
-                                android:textStyle="bold|italic"
-                                android:layout_height="wrap_content"
-                                android:text="Name" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:orientation="vertical"
-                            android:layout_height="wrap_content">
-
-                            <TextView
                                 android:id="@+id/pokemon_id"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
@@ -127,6 +102,31 @@
                                 android:textStyle="bold|italic"
                                 android:layout_height="wrap_content"
                                 android:text="Id" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="30dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/pokemon_name"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:textSize="20dp"
+                                android:textColor="#6A90B5"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:textSize="14dp"
+                                android:textColor="#DF6A90B5"
+                                android:textStyle="bold|italic"
+                                android:layout_height="wrap_content"
+                                android:text="Name" />
 
                         </LinearLayout>
 
@@ -195,40 +195,6 @@
                         android:textColor="#FF5832"
                         android:textSize="24dp" />
 
-
-                    <LinearLayout
-                        android:layout_marginTop="4dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        </ImageView>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp" />
-
-                    </LinearLayout>
-
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
@@ -241,6 +207,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/pokemon_hp"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:textSize="20dp"
@@ -264,6 +231,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/pokemon_atk"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:textSize="20dp"
@@ -287,6 +255,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/pokemon_atk_sp"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:textSize="20dp"
@@ -310,6 +279,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/pokemon_def"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:textSize="20dp"
@@ -333,6 +303,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/pokemon_def_sp"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:textSize="20dp"
@@ -356,6 +327,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/pokemon_speed"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:textSize="20dp"
@@ -434,6 +406,7 @@
 
                             <TextView
                                 android:layout_width="wrap_content"
+                                android:id="@+id/pokemon_techniques"
                                 android:textSize="15dp"
                                 android:textColor="#6A90B5"
                                 android:layout_height="wrap_content"/>
