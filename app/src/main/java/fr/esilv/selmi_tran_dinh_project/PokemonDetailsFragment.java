@@ -78,15 +78,24 @@ public class PokemonDetailsFragment extends Fragment {
                     pokemon_types.setText(temp);
 
                     List<PokemonDetails.Stats> list2 = res.getStats();
+                    pokemon_hp.setText(list2.get(5).getBase_stat());
+                    pokemon_atk.setText(list2.get(4).getBase_stat());
+                    pokemon_atk_sp.setText(list2.get(2).getBase_stat());
+                    pokemon_def.setText(list2.get(3).getBase_stat());
+                    pokemon_def_sp.setText(list2.get(1).getBase_stat());
+                    pokemon_speed.setText(list2.get(0).getBase_stat());
+
+                    List<PokemonDetails.Abilities> list3 = res.getAbilities();
                     StringBuilder temp2 = new StringBuilder();
-                    for(int index = 0; index < list2.size(); index++)
+                    for(int index = 0; index < list3.size(); index++)
                     {
-                        temp2.append(list2.get(index).getBase_stat());
-                        if(index < list1.size() - 1)
+                        temp2.append(list3.get(index).getAbility().getName());
+                        if(index < list3.size() - 1)
                         {
-                            temp2.append(" / ");
+                            temp.append(" / ");
                         }
                     }
+                    pokemon_types.setText(temp);
                 }
             }
 
