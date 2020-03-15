@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity{
                     default:
                         return true;
                 }
-                return false;
+                return true;
             }
         });
     }
