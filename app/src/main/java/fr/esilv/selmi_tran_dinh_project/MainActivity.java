@@ -119,6 +119,12 @@ public class MainActivity extends AppCompatActivity{
 
                     case R.id.contact_icon:
                         Toast.makeText(MainActivity.this, "Contact",Toast.LENGTH_SHORT).show();
+                        fragmentTransaction=fragmentManager.beginTransaction();
+
+                        PokemonContactFragment pokemonContactFragment = new PokemonContactFragment();
+
+                        fragmentTransaction.replace(R.id.fragmentContainer, pokemonContactFragment);
+                        fragmentTransaction.commit();
                         break;
 
                     default:

@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +30,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener{
 
     MyRecyclerViewAdapter adapter;
-    TextView input;
-    Button search;
+    final ArrayList<Pokemon> pokemon_list = new ArrayList<>();
+    TextView count_main;
 
     View rootView;
 
@@ -44,9 +46,7 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
         rootView = inflater.inflate(R.layout.pokemonlistfragment,container,false);
         final Context context = getActivity().getBaseContext();
 
-        final ArrayList<Pokemon> pokemon_list = new ArrayList<>();
-        input = rootView.findViewById(R.id.input_search);
-        search = rootView.findViewById(R.id.btn_find);
+        count_main = (TextView) rootView.findViewById(R.id.count_main);
 
         RecyclerView recyclerView = rootView.findViewById(R.id.pokemons);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -73,6 +73,9 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
                 if(response.body().toString() != null)
                 {
                     List<All_Pokemons.Results> list = res.getResults();
+
+                    count_main.setText("Pokemons found: " + Integer.toString(list.size()));
+
                     for(int index = 0; index < list.size(); index++)
                     {
                         Pokemon temp = new Pokemon(list.get(index).getName(), list.get(index).getUrl());

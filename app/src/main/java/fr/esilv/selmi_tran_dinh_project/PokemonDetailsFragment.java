@@ -2,6 +2,7 @@ package fr.esilv.selmi_tran_dinh_project;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class PokemonDetailsFragment extends Fragment {
     View rootView;
@@ -41,7 +44,7 @@ public class PokemonDetailsFragment extends Fragment {
 
         IRetrofit Iretrofit = retrofit.create(IRetrofit.class);
 
-        Call<PokemonDetails> call = Iretrofit.pokemon_details("ditto");
+        Call<PokemonDetails> call = Iretrofit.pokemon_details("blaziken");
 
         call.enqueue(new Callback<PokemonDetails>() {
             @Override
@@ -61,7 +64,8 @@ public class PokemonDetailsFragment extends Fragment {
 
                 if(response.body().toString() != null)
                 {
-                    pokemon_id.setText(res.getId());
+                    Log.i("Testing", "onResponse: " + res.getId());
+                    pokemon_id.setText(Integer.toString(res.getId()));
 
                     pokemon_name.setText(res.getName());
 
@@ -78,12 +82,12 @@ public class PokemonDetailsFragment extends Fragment {
                     pokemon_types.setText(temp);
 
                     List<PokemonDetails.Stats> list2 = res.getStats();
-                    pokemon_hp.setText(list2.get(5).getBase_stat());
-                    pokemon_atk.setText(list2.get(4).getBase_stat());
-                    pokemon_atk_sp.setText(list2.get(2).getBase_stat());
-                    pokemon_def.setText(list2.get(3).getBase_stat());
-                    pokemon_def_sp.setText(list2.get(1).getBase_stat());
-                    pokemon_speed.setText(list2.get(0).getBase_stat());
+                    pokemon_hp.setText(Integer.toString(list2.get(5).getBase_stat()));
+                    pokemon_atk.setText(Integer.toString(list2.get(4).getBase_stat()));
+                    pokemon_atk_sp.setText(Integer.toString(list2.get(2).getBase_stat()));
+                    pokemon_def.setText(Integer.toString(list2.get(3).getBase_stat()));
+                    pokemon_def_sp.setText(Integer.toString(list2.get(1).getBase_stat()));
+                    pokemon_speed.setText(Integer.toString(list2.get(0).getBase_stat()));
 
                     List<PokemonDetails.Abilities> list3 = res.getAbilities();
                     StringBuilder temp2 = new StringBuilder();
@@ -92,10 +96,10 @@ public class PokemonDetailsFragment extends Fragment {
                         temp2.append(list3.get(index).getAbility().getName());
                         if(index < list3.size() - 1)
                         {
-                            temp.append(" / ");
+                            temp2.append(" / ");
                         }
                     }
-                    pokemon_types.setText(temp);
+                    pokemon_techniques.setText(temp2);
                 }
             }
 
