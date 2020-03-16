@@ -2,13 +2,13 @@ package fr.esilv.selmi_tran_dinh_project;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,10 +30,37 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener{
 
     MyRecyclerViewAdapter adapter;
-    final ArrayList<Pokemon> pokemon_list = new ArrayList<>();
+    ArrayList<Pokemon> pokemon_list = new ArrayList<>();
+    ArrayList<Pokemon> pokemon_list_save = new ArrayList<>(); //To keep copy of full list and avoid requesting again to api.
     TextView count_main;
+    EditText input_filter;
 
     View rootView;
+
+    void filter(String name){
+        if(name.length() == 0)
+        {
+            Log.i("Filter", "Empty filter.");
+            pokemon_list.clear();
+            pokemon_list.addAll(pokemon_list_save);
+            adapter.notifyDataSetChanged();
+        }
+        else
+        {
+            pokemon_list.clear();
+            pokemon_list.addAll(pokemon_list_save);
+            adapter.notifyDataSetChanged();
+            ArrayList<Pokemon> temp = new ArrayList();
+            for(Pokemon element: pokemon_list){
+                if(element.getName().contains(name)){
+                    temp.add(element);
+                }
+            }
+            pokemon_list.clear();
+            pokemon_list.addAll(temp);
+            adapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     public void onItemClick(View view, int position) {
@@ -47,6 +74,24 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
         final Context context = getActivity().getBaseContext();
 
         count_main = (TextView) rootView.findViewById(R.id.count_main);
+        input_filter = (EditText) rootView.findViewById(R.id.input_filter);
+
+        input_filter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
 
         RecyclerView recyclerView = rootView.findViewById(R.id.pokemons);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -81,6 +126,7 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
                         Pokemon temp = new Pokemon(list.get(index).getName(), list.get(index).getUrl());
                         Log.i("test", "onResponse: " + temp.getUrl());
                         pokemon_list.add(temp);
+                        pokemon_list_save.add(temp);
                     }
                     adapter.notifyDataSetChanged();
                 }

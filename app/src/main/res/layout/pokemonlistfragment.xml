@@ -39,6 +39,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#555" />
+                <EditText
+                    android:id="@+id/input_filter"
+                    android:hint="Filter (please empty to reset)"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
