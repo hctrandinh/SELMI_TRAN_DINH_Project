@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +25,13 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.home,container,false);
-        String content = getActivity().getIntent().getStringExtra("InfoActivityHomeImg");
+        //String content = getActivity().getIntent().getStringExtra("InfoActivityHomeImg");
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+        String content = preferences.getString("key_home", null);
+
         Context context = getActivity().getBaseContext();
         homeimage = (ImageView) rootView.findViewById(R.id.homeimage);
-
-        Log.i("tag2", "nb: " + content);
 
         if(content == null)
         {

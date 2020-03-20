@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,12 +28,13 @@ public class InfoActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     private static final String SHARED_PREF_NAME = "username";
     private static final String KEY_NAME = "key_username";
+    private static final String SHARED_PREF_HOME = "home";
+    private static final String KEY_HOME = "key_home";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-
         final Context context = getBaseContext();
 
         home_url.add("home1");
@@ -66,9 +68,15 @@ public class InfoActivity extends AppCompatActivity implements MyRecyclerViewAda
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(getBaseContext(), "You have chosen home background " + (position + 1), Toast.LENGTH_SHORT).show();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(KEY_HOME, Integer.toString((position + 1)));
+        editor.commit();
+
         Intent mainActivity = new Intent(InfoActivity.this, MainActivity.class);
-        String content = Integer.toString((position + 1));
-        mainActivity.putExtra("InfoActivityHomeImg", content);
+        //String content = Integer.toString((position + 1));
+        //mainActivity.putExtra("InfoActivityHomeImg", content);
         startActivity(mainActivity);
     }
 
