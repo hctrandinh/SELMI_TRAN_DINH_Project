@@ -1,5 +1,6 @@
 package fr.esilv.selmi_tran_dinh_project;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,5 +27,4 @@ public class HomeFragment extends Fragment {
         super.onResume();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Home");
     }
-
 }
