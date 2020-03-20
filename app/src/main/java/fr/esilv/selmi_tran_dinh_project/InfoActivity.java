@@ -1,15 +1,25 @@
 package fr.esilv.selmi_tran_dinh_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class InfoActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class InfoActivity extends AppCompatActivity implements MyRecyclerViewAdapterImage.ItemClickListener{
+
+    MyRecyclerViewAdapterImage adapter;
+    ArrayList<String> home_url = new ArrayList<String>();
 
     private TextView txt_info;
     private EditText input_info;
@@ -23,6 +33,22 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
+        final Context context = getBaseContext();
+
+        home_url.add("home1");
+        home_url.add("home2");
+        home_url.add("home3");
+        home_url.add("home4");
+        home_url.add("home5");
+        home_url.add("home6");
+
+        RecyclerView recyclerView = findViewById(R.id.home_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        adapter = new MyRecyclerViewAdapterImage(context, home_url);
+        recyclerView.setAdapter(adapter);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
+
         txt_info = (TextView) findViewById(R.id.txt_info);
         input_info = (EditText) findViewById(R.id.input_info);
         btn_info = (Button) findViewById(R.id.btn_info);
@@ -35,6 +61,15 @@ public class InfoActivity extends AppCompatActivity {
                 save_data();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(getBaseContext(), "You have chosen home background " + (position + 1), Toast.LENGTH_SHORT).show();
+        Intent mainActivity = new Intent(InfoActivity.this, MainActivity.class);
+        String content = Integer.toString((position + 1));
+        mainActivity.putExtra("InfoActivityHomeImg", content);
+        startActivity(mainActivity);
     }
 
     private void get_saved_data()

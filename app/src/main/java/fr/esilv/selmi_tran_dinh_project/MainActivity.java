@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String content = getIntent().getStringExtra("InfoActivityHomeImg");
+        Log.i("tag1", "nb: " + content);
+
         fragmentManager = getSupportFragmentManager();
 
         dl = (DrawerLayout)findViewById(R.id.activity_main);

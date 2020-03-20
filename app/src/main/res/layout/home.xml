@@ -7,7 +7,6 @@
         android:id="@+id/homeimage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/home6"
         android:scaleType="centerCrop"
         android:layout_marginBottom="50dp">
     </ImageView>
