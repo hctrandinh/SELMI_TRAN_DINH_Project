@@ -2,6 +2,7 @@ package fr.esilv.selmi_tran_dinh_project;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -37,6 +38,8 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
 
     FragmentListActionListener fragmentListActionListener;
 
+    int click = 0;
+
     View rootView;
 
     public void setFragmentListActionListener(FragmentListActionListener fragmentListActionListener)
@@ -71,13 +74,33 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getActivity().getBaseContext(), "You have clicked on row number " + position, Toast.LENGTH_SHORT).show();
-        Log.i("Click", "onItemClick1 ");
-        if(fragmentListActionListener != null)
-        {
-            Log.i("Click", "onItemClick2 ");
-            fragmentListActionListener.onPokemonSelected(pokemon_list_save.get(position).getName());
-        }
+        //Toast.makeText(getActivity().getBaseContext(), "You have clicked on row number " + position, Toast.LENGTH_SHORT).show();
+        click++;
+        final int pos = position;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(click == 1)
+                {
+                    Toast.makeText(getActivity().getBaseContext(), "Details",Toast.LENGTH_SHORT).show();
+                    click = 0;
+                    if(fragmentListActionListener != null)
+                    {
+                        fragmentListActionListener.onPokemonSelected(pokemon_list_save.get(pos).getName());
+                    }
+                }
+                if(click == 2)
+                {
+                    Toast.makeText(getActivity().getBaseContext(), "Added to Favorites",Toast.LENGTH_SHORT).show();
+                    click = 0;
+                }
+                else
+                {
+                    click = 0;
+                }
+            }
+        }, 500);
     }
 
     @Nullable
