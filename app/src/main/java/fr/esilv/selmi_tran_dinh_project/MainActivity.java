@@ -53,6 +53,17 @@ public class MainActivity extends AppCompatActivity implements FragmentListActio
         fragmentTransaction.commit();
     }
 
+    public void addSearchFragment()
+    {
+        fragmentTransaction=fragmentManager.beginTransaction();
+
+        PokemonSearchFragment pokemonSearchFragment = new PokemonSearchFragment();
+        pokemonSearchFragment.setFragmentListActionListener(this);
+
+        fragmentTransaction.replace(R.id.fragmentContainer, pokemonSearchFragment);
+        fragmentTransaction.commit();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListActio
                         Toast.makeText(MainActivity.this, "My Account",Toast.LENGTH_SHORT).show();
                         Intent nextActivity = new Intent(MainActivity.this, InfoActivity.class);
                         startActivity(nextActivity);
+                        finish();
                         break;
                     case R.id.settings:
                         Toast.makeText(MainActivity.this, "Settings",Toast.LENGTH_SHORT).show();break;
@@ -123,12 +135,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListActio
 
                     case R.id.search_icon:
                         Toast.makeText(MainActivity.this, "Search",Toast.LENGTH_SHORT).show();
-                        fragmentTransaction=fragmentManager.beginTransaction();
-
-                        PokemonSearchFragment pokemonSearchFragment = new PokemonSearchFragment();
-
-                        fragmentTransaction.replace(R.id.fragmentContainer, pokemonSearchFragment);
-                        fragmentTransaction.commit();
+                        addSearchFragment();
                         break;
 
                     case R.id.contact_icon:

@@ -9,7 +9,7 @@
         android:title="List"/>
     <item android:id="@+id/search_icon"
         android:icon="@drawable/ic_brightness_high_black_24dp"
-        android:title="Search"/>
+        android:title="Favorites"/>
     <item android:id="@+id/contact_icon"
         android:icon="@drawable/ic_brightness_high_black_24dp"
         android:title="Contact"/>

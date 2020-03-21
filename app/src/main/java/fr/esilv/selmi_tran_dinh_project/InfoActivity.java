@@ -78,6 +78,7 @@ public class InfoActivity extends AppCompatActivity implements MyRecyclerViewAda
         //String content = Integer.toString((position + 1));
         //mainActivity.putExtra("InfoActivityHomeImg", content);
         startActivity(mainActivity);
+        finish();
     }
 
     private void get_saved_data()

@@ -1,8 +1,10 @@
 package fr.esilv.selmi_tran_dinh_project;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,7 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -92,6 +96,26 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
                 }
                 if(click == 2)
                 {
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+                    Set<String> set = preferences.getStringSet("KEY_FAVORITES", null);
+                    if(set != null)
+                    {
+                        if(set.contains(pokemon_list_save.get(pos).getName()) == false)
+                        {
+                            set.add(pokemon_list_save.get(pos).getName());
+                        }
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putStringSet("KEY_FAVORITES", set);
+                        editor.commit();
+                    }
+                    else
+                    {
+                        Set<String> temp = new HashSet<>();
+                        temp.add(pokemon_list_save.get(pos).getName());
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putStringSet("KEY_FAVORITES", temp);
+                        editor.commit();
+                    }
                     Toast.makeText(getActivity().getBaseContext(), "Added to Favorites",Toast.LENGTH_SHORT).show();
                     click = 0;
                 }
