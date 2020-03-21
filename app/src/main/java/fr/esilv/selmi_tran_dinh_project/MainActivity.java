@@ -169,7 +169,8 @@ public class MainActivity extends AppCompatActivity implements FragmentListActio
         bundle.putString(FragmentListActionListener.KEY_POKEMON_SELECTED, name);
         pokemonDetailsFragment.setArguments(bundle);
 
-        fragmentTransaction.replace(R.id.fragmentContainer, pokemonDetailsFragment);
+        fragmentTransaction.add(R.id.fragmentContainer, pokemonDetailsFragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 }

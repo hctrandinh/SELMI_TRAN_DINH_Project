@@ -1,6 +1,7 @@
 package fr.esilv.selmi_tran_dinh_project;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
