@@ -42,6 +42,17 @@ public class MainActivity extends AppCompatActivity implements FragmentListActio
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
+    public void addListFragment()
+    {
+        fragmentTransaction=fragmentManager.beginTransaction();
+
+        PokemonListFragment pokemonListFragment = new PokemonListFragment();
+        pokemonListFragment.setFragmentListActionListener(this);
+
+        fragmentTransaction.replace(R.id.fragmentContainer, pokemonListFragment);
+        fragmentTransaction.commit();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,12 +118,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListActio
 
                     case R.id.list_icon:
                         Toast.makeText(MainActivity.this, "List",Toast.LENGTH_SHORT).show();
-                        fragmentTransaction=fragmentManager.beginTransaction();
-
-                        PokemonListFragment pokemonListFragment = new PokemonListFragment();
-
-                        fragmentTransaction.replace(R.id.fragmentContainer, pokemonListFragment);
-                        fragmentTransaction.commit();
+                        addListFragment();
                         break;
 
                     case R.id.search_icon:

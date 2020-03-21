@@ -72,9 +72,10 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(getActivity().getBaseContext(), "You have clicked on row number " + position, Toast.LENGTH_SHORT).show();
+        Log.i("Click", "onItemClick1 ");
         if(fragmentListActionListener != null)
         {
-            Log.i("Click", "onItemClick: ");
+            Log.i("Click", "onItemClick2 ");
             fragmentListActionListener.onPokemonSelected(pokemon_list_save.get(position).getName());
         }
     }
