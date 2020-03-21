@@ -35,7 +35,14 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
     TextView count_main;
     EditText input_filter;
 
+    FragmentListActionListener fragmentListActionListener;
+
     View rootView;
+
+    public void setFragmentListActionListener(FragmentListActionListener fragmentListActionListener)
+    {
+        this.fragmentListActionListener = fragmentListActionListener;
+    }
 
     void filter(String name){
         if(name.length() == 0)
@@ -64,7 +71,12 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getActivity().getBaseContext(), "You clicked on row number " + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity().getBaseContext(), "You have clicked on row number " + position, Toast.LENGTH_SHORT).show();
+        if(fragmentListActionListener != null)
+        {
+            Log.i("Click", "onItemClick: ");
+            fragmentListActionListener.onPokemonSelected(pokemon_list_save.get(position).getName());
+        }
     }
 
     @Nullable

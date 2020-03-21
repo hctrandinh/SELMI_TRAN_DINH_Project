@@ -37,6 +37,10 @@ public class PokemonDetailsFragment extends Fragment {
 
         final ArrayList<PokemonDetails> pokemon_details = new ArrayList<>();
 
+        Bundle bundle = getArguments();
+        String name = bundle.getString(FragmentListActionListener.KEY_POKEMON_SELECTED, null);
+        Log.i("Name", name);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://pokeapi.co/api/v2/pokemon/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -44,7 +48,7 @@ public class PokemonDetailsFragment extends Fragment {
 
         IRetrofit Iretrofit = retrofit.create(IRetrofit.class);
 
-        Call<PokemonDetails> call = Iretrofit.pokemon_details("blaziken");
+        Call<PokemonDetails> call = Iretrofit.pokemon_details(name);
 
         call.enqueue(new Callback<PokemonDetails>() {
             @Override

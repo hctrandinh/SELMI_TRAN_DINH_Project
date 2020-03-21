@@ -19,6 +19,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private ArrayList<Pokemon> pokemon;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private ItemLongClickListener mLongClickListener;
 
     // Here you give data to the constructor.
     MyRecyclerViewAdapter(Context context, ArrayList<Pokemon> pokemon) {
@@ -48,7 +49,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 
     // Stores and recycles views as they are scrolled off screen.
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private TextView txtName, txtUrl;
 
         ViewHolder(View itemView) {
@@ -56,6 +57,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             txtName = itemView.findViewById(R.id.txtName);
             txtUrl = itemView.findViewById(R.id.txtUrl);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         void setDetails(Pokemon pokemon) {
@@ -65,7 +67,19 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null)
+            {
+                mClickListener.onItemClick(view, getAdapterPosition());
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if(mLongClickListener != null)
+            {
+                mLongClickListener.onItemLongClicked(view, getAdapterPosition());
+            }
+            return true;
         }
     }
 
@@ -79,5 +93,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         void onItemClick(View view, int position);
     }
 
-
+    public interface ItemLongClickListener {
+        void onItemLongClicked(View view, int position);
+    }
 }

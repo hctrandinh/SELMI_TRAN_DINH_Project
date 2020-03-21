@@ -32,7 +32,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements FragmentListActionListener{
 
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
@@ -150,5 +150,20 @@ public class MainActivity extends AppCompatActivity{
             return true;
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPokemonSelected(String name)
+    {
+        fragmentTransaction=fragmentManager.beginTransaction();
+
+        PokemonDetailsFragment pokemonDetailsFragment = new PokemonDetailsFragment();
+
+        Bundle bundle=new Bundle();
+        bundle.putString(FragmentListActionListener.KEY_POKEMON_SELECTED, name);
+        pokemonDetailsFragment.setArguments(bundle);
+
+        fragmentTransaction.replace(R.id.fragmentContainer, pokemonDetailsFragment);
+        fragmentTransaction.commit();
     }
 }
