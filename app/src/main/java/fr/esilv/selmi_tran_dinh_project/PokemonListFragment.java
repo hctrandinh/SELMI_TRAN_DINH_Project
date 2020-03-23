@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -97,24 +98,23 @@ public class PokemonListFragment extends Fragment implements MyRecyclerViewAdapt
                 if(click == 2)
                 {
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
-                    Set<String> set = preferences.getStringSet("KEY_FAVORITES", null);
+                    Set<String> set = new HashSet<>(preferences.getStringSet("KEY_FAVORITES", new HashSet<String>()));
                     if(set != null)
                     {
                         if(set.contains(pokemon_list_save.get(pos).getName()) == false)
                         {
                             set.add(pokemon_list_save.get(pos).getName());
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putStringSet("KEY_FAVORITES", set);
+                            editor.apply();
                         }
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putStringSet("KEY_FAVORITES", set);
-                        editor.commit();
                     }
                     else
                     {
-                        Set<String> temp = new HashSet<>();
-                        temp.add(pokemon_list_save.get(pos).getName());
+                        set.add(pokemon_list_save.get(pos).getName());
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putStringSet("KEY_FAVORITES", temp);
-                        editor.commit();
+                        editor.putStringSet("KEY_FAVORITES", set);
+                        editor.apply();
                     }
                     Toast.makeText(getActivity().getBaseContext(), "Added to Favorites",Toast.LENGTH_SHORT).show();
                     click = 0;
