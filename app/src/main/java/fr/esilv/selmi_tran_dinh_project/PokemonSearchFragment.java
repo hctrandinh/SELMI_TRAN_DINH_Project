@@ -42,6 +42,8 @@ public class PokemonSearchFragment extends Fragment implements MyRecyclerViewAda
 
     FragmentListActionListener fragmentListActionListener;
 
+    int click = 0;
+
     View rootView;
 
     public void setFragmentListActionListener(FragmentListActionListener fragmentListActionListener)
@@ -129,11 +131,43 @@ public class PokemonSearchFragment extends Fragment implements MyRecyclerViewAda
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getActivity().getBaseContext(), "You have clicked on row number " + position, Toast.LENGTH_SHORT).show();
-        if(fragmentListActionListener != null)
-        {
-            fragmentListActionListener.onPokemonSelected(pokemon_list_save.get(position).getName());
-        }
+        //Toast.makeText(getActivity().getBaseContext(), "You have clicked on row number " + position, Toast.LENGTH_SHORT).show();
+        click++;
+        final int pos = position;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(click == 1)
+                {
+                    Toast.makeText(getActivity().getBaseContext(), "Details",Toast.LENGTH_SHORT).show();
+                    click = 0;
+                    if(fragmentListActionListener != null)
+                    {
+                        fragmentListActionListener.onPokemonSelected(pokemon_list_save.get(pos).getName());
+                    }
+                }
+                if(click == 2)
+                {
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+                    Set<String> set = new HashSet<>(preferences.getStringSet("KEY_FAVORITES", new HashSet<String>()));
+                    set.remove(pokemon_list_save.get(pos).getName());
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putStringSet("KEY_FAVORITES", set);
+                    editor.apply();
+                    Pokemon temp = pokemon_list_save.get(pos);
+                    pokemon_list.remove(temp);
+                    pokemon_list_save.remove(temp);
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(getActivity().getBaseContext(), "Removed Favorites",Toast.LENGTH_SHORT).show();
+                    click = 0;
+                }
+                else
+                {
+                    click = 0;
+                }
+            }
+        }, 500);
     }
 
     @Override
